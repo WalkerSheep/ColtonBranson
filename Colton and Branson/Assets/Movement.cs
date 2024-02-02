@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public int Score;
+    public static Movement instance;
     public Rigidbody2D MyRigidbody;
     public float JumpHeight;
     public float MoveSpeed;
@@ -21,6 +21,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        instance = this;
         // animator = GetComponent<Animator>();
         FacingRight = transform.rotation.y == 0;
         wallStick = GetComponent<WallStick>();
