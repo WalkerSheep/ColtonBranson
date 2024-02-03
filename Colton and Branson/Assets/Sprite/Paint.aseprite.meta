@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b7528aca54934d24c85d1276e93a3032
+guid: 5db3d99c41a199145ac9e15e5a299c62
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Slime
+  - name: Paint
     originalName: 
-    pivot: {x: 0.5217391, y: -0.4117647}
+    pivot: {x: 0, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 23
-      height: 17
-    spriteID: eb075b46878d7ca4b83cc402f0b95e30
+      width: 32
+      height: 32
+    spriteID: ce4c411963964e847a69252bbb0414fb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,20 +142,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1324298474
-    name: Slime
+    guid: 1625712338
+    name: Paint
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Slime
+    - name: Paint
       frameIndex: 0
       cellRect:
-        x: 4
-        y: 7
-        width: 23
-        height: 17
-      spriteId: eb075b46878d7ca4b83cc402f0b95e30
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      spriteId: ce4c411963964e847a69252bbb0414fb
     linkedCells: []
     parentIndex: -1
   platformSettings: []

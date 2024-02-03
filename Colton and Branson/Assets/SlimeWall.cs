@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class SlimeWall : MonoBehaviour
 {
     public SlimeColor slimeColor;
-    private SpriteRenderer spriteRenderer;
-    private Collider2D MyCollider;
+    private Tilemap spriteRenderer;
+    public Collider2D MyCollider;
     private Collider2D PlayerCollider;
     // Start is called before the first frame update
     void Start()
@@ -17,8 +18,7 @@ public class SlimeWall : MonoBehaviour
 
     void Awake()
     {
-        MyCollider = GetComponent<Collider2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponent<Tilemap>();
     }
 
     // Update is called once per frame

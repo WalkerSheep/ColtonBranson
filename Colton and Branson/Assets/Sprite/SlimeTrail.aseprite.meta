@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b7528aca54934d24c85d1276e93a3032
+guid: 3f2a6c0bc020fd94584f2a6b35fcd03c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Slime
+  - name: SlimeTrail
     originalName: 
-    pivot: {x: 0.5217391, y: -0.4117647}
+    pivot: {x: 0.5, y: -0.23076925}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 23
-      height: 17
-    spriteID: eb075b46878d7ca4b83cc402f0b95e30
+      width: 32
+      height: 13
+    spriteID: ae75de7d2ecbc804da4582c6c5c6f3be
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,23 +142,23 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1324298474
-    name: Slime
+    guid: 277281514
+    name: SlimeTrail
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Slime
+    - name: SlimeTrail
       frameIndex: 0
       cellRect:
-        x: 4
-        y: 7
-        width: 23
-        height: 17
-      spriteId: eb075b46878d7ca4b83cc402f0b95e30
+        x: 0
+        y: 3
+        width: 32
+        height: 13
+      spriteId: ae75de7d2ecbc804da4582c6c5c6f3be
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 32}
+  canvasSize: {x: 32, y: 16}

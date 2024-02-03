@@ -33,7 +33,7 @@ public class WallStick : MonoBehaviour
             ExitWall();
         }
 
-        if(TouchingWall && !WallSliding && !OnGround)
+        if(TouchingWall && !WallSliding && !OnGround && movement.Flipper.transform.right.x == movement.Horizontal)
         {
             if(movement.MyRigidbody.velocity.y < 2)
             {
@@ -48,7 +48,11 @@ public class WallStick : MonoBehaviour
                 StartCoroutine(StopMovement(0.5f));
                 WallSliding = false;
                 movement.Flip();
-                movement.MyRigidbody.velocity = new Vector2(movement.transform.right.x * 10,movement.JumpHeight);
+                movement.MyRigidbody.velocity = new Vector2(movement.Flipper.right.x * 10,movement.JumpHeight);
+            }
+            if(movement.Flipper.transform.right.x != movement.Horizontal)
+            {
+                WallSliding = false;
             }
         }
 
@@ -76,7 +80,7 @@ public class WallStick : MonoBehaviour
     {
         movement.MyRigidbody.gravityScale = 0;
         movement.MyRigidbody.velocity = Vector2.zero;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.25f);
         movement.MyRigidbody.gravityScale = 0.25f;
     }
 }

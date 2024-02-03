@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
     public AudioClip JumpSound;
     private WallStick wallStick;
     public bool CanMove;
+    public Transform Flipper;
     // Start is called before the first frame update
     void Awake()
     {
@@ -86,6 +87,6 @@ public class Movement : MonoBehaviour
     public void Flip()
     {
         FacingRight = !FacingRight;
-        transform.Rotate(0,180,0);
+        Flipper.Rotate(0,180,0);
     }
 }
