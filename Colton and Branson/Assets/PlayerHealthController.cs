@@ -27,6 +27,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         Player.transform.position = new Vector3(0,0,0);
         Player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        ColorController.instance.slimeColor = ColorController.instance.DefaultColor;
         PlayerHealth.health = 3;
     }
 }

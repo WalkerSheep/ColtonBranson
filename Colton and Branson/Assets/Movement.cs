@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     public bool OnGround;
     public Transform GroundCheck;
     public LayerMask GroundLayer;
-    // private Animator animator;
+    private Animator animator;
     public bool FacingRight;
     public AudioClip JumpSound;
     private WallStick wallStick;
@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
     void Awake()
     {
         instance = this;
-        // animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         FacingRight = transform.rotation.y == 0;
         wallStick = GetComponent<WallStick>();
     }
@@ -57,7 +57,9 @@ public class Movement : MonoBehaviour
                 MyRigidbody.gravityScale = 3;
             }
         }
-        // animator.SetFloat("XVelocity",Mathf.Abs(MyRigidbody.velocity.x));
+        animator.SetFloat("XVelocity",Mathf.Abs(MyRigidbody.velocity.x));
+        animator.SetFloat("YVelocity",MyRigidbody.velocity.y);
+        animator.SetBool("OnGround",OnGround);
         if(Input.GetKeyDown(KeyCode.Space))
         {
             if(OnGround)
@@ -80,8 +82,14 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        AudioManager.instance.PlaySound(JumpSound,transform.position);
+        JumpAnimate();
         MyRigidbody.velocity = new Vector2(MyRigidbody.velocity.x,JumpHeight);
+    }
+
+    public void JumpAnimate()
+    {
+        animator.SetTrigger("Jump");
+        AudioManager.instance.PlaySound(JumpSound,transform.position);
     }
 
     public void Flip()

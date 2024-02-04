@@ -48,6 +48,7 @@ public class WallStick : MonoBehaviour
                 StartCoroutine(StopMovement(0.5f));
                 WallSliding = false;
                 movement.Flip();
+                movement.JumpAnimate();
                 movement.MyRigidbody.velocity = new Vector2(movement.Flipper.right.x * 10,movement.JumpHeight);
             }
             if(movement.Flipper.transform.right.x != movement.Horizontal)

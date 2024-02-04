@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ColorController : MonoBehaviour
 {
+    public SlimeColor DefaultColor;
     public static ColorController instance;
     public SlimeColor slimeColor;
     public GameObject Player;
@@ -23,6 +24,6 @@ public class ColorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerRenderer.color = Color.Lerp(PlayerRenderer.color,slimeColor.color,25 * Time.deltaTime);
+        PlayerRenderer.color = Color.Lerp(PlayerRenderer.color,slimeColor.color,10 * Time.deltaTime);
     }
 }
