@@ -11,6 +11,9 @@ public class Patrol : MonoBehaviour
 
     public bool FacingRight;
 
+    public bool TouchChildren;
+    public Transform WallCheck;
+
 
 
     // Start is called before the first frame update
@@ -18,23 +21,28 @@ public class Patrol : MonoBehaviour
     {
         RB = GetComponent<Rigidbody2D>();
         FacingRight = true;
+        TouchChildren = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         OnGround = Physics2D.OverlapCircle(GroundCheck.position,0.2f,Movement.instance.GroundLayer);
-        if (!OnGround)
+        if (!OnGround || TouchChildren)
         {
             Flip();
-            
+
         }
         RB.velocity = new Vector2(transform.right.x * MoveSpeed, RB.velocity.y);
+        TouchChildren = Physics2D.OverlapCircle(WallCheck.position,0.2f,Movement.instance.GroundLayer);
+
     }
     public void Flip()
     {
         FacingRight = !FacingRight;
         transform.Rotate(0, 180, 0);
+        
+
     }
 }
  
