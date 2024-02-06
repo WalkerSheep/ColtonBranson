@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     public float JumpHeight;
     public float MoveSpeed;
     public float Horizontal;
+    private bool InAir;
     public bool OnGround;
     public Transform GroundCheck;
     public LayerMask GroundLayer;
@@ -19,6 +20,10 @@ public class Movement : MonoBehaviour
     private WallStick wallStick;
     public bool CanMove;
     public Transform Flipper;
+    public float CyoteTime;
+    public float CyoteTimer;
+    public bool haveCyoteTime;
+    public bool SavedJump;
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,21 +37,60 @@ public class Movement : MonoBehaviour
         
     }
 
+    void FixedUpdate()
+    {
+        if(CyoteTimer > 0)
+        {
+            CyoteTimer = CyoteTimer - Time.deltaTime;
+            haveCyoteTime = true;
+        }
+        else
+        {
+            CyoteTimer = 0;
+            haveCyoteTime = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         OnGround = Physics2D.OverlapCircle(GroundCheck.position,0.2f,GroundLayer);
 
         Horizontal = Input.GetAxisRaw("Horizontal");
-        if(CanMove)
+        if(OnGround && InAir)
         {
-            MyRigidbody.velocity = Vector2.Lerp(MyRigidbody.velocity,new Vector2(MoveSpeed * Horizontal,MyRigidbody.velocity.y),10 * Time.deltaTime);
+            InAir = false;
+            Land();
+        }
+        if(OnGround && !InAir)
+        {
+            InAir = true;
+            LeaveGround();
+        }
+        if(Platform.platform == null)
+        {
+            if(CanMove)
+            {
+                MyRigidbody.velocity = Vector2.Lerp(MyRigidbody.velocity,new Vector2(MoveSpeed * Horizontal,MyRigidbody.velocity.y),10 * Time.deltaTime);
+            }
+            else
+            {
+                MyRigidbody.velocity = Vector2.MoveTowards(MyRigidbody.velocity,new Vector2(0,MyRigidbody.velocity.y),10 * Time.deltaTime);
+            }
         }
         else
         {
-            MyRigidbody.velocity = Vector2.MoveTowards(MyRigidbody.velocity,new Vector2(0,MyRigidbody.velocity.y),10 * Time.deltaTime);
+            MyRigidbody.gravityScale = 100;
+                if(CanMove)
+                {
+                    MyRigidbody.velocity = Vector2.Lerp(MyRigidbody.velocity,new Vector2((MoveSpeed * Horizontal) + Platform.platform.rb.velocity.x,MyRigidbody.velocity.y),10 * Time.deltaTime);
+                }
+                else
+                {
+                    MyRigidbody.velocity = Vector2.MoveTowards(MyRigidbody.velocity,new Vector2(0,MyRigidbody.velocity.y),10 * Time.deltaTime);
+                }
         }
-        if(wallStick.WallSliding == false)
+        if(wallStick.WallSliding == false && Platform.platform == null)
         {
             if(MyRigidbody.velocity.y < 0)
             {
@@ -62,11 +106,22 @@ public class Movement : MonoBehaviour
         animator.SetBool("OnGround",OnGround);
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(OnGround)
+            if(OnGround || haveCyoteTime)
             {
                 Jump();
             }
+            else
+            {
+                SavedJump = true;
+            }
         }
+        // if(Input.GetKeyUp(KeyCode.Space))
+        // {
+        //     if(MyRigidbody.velocity.y > 0)
+        //     {
+        //         MyRigidbody.velocity = new Vector2(MyRigidbody.velocity.x,0);
+        //     }
+        // }
         if(CanMove)
         {
             if(FacingRight && Horizontal == -1)
@@ -82,7 +137,10 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
+        MyRigidbody.gravityScale = 3;
+        Platform.platform = null;
         JumpAnimate();
+        CyoteTimer = 0;
         MyRigidbody.velocity = new Vector2(MyRigidbody.velocity.x,JumpHeight);
     }
 
@@ -96,5 +154,23 @@ public class Movement : MonoBehaviour
     {
         FacingRight = !FacingRight;
         Flipper.Rotate(0,180,0);
+    }
+
+    public void LeaveGround()
+    {
+        if(MyRigidbody.velocity.y < 0.1f)
+        {
+            CyoteTimer = CyoteTime;
+        }
+    }
+
+    public void Land()
+    {
+        if(SavedJump && Input.GetKey(KeyCode.Space))
+        {
+            Jump();
+        }
+        SavedJump = false;
+        CyoteTimer = 0;
     }
 }

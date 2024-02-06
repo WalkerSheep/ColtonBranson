@@ -40,6 +40,14 @@ public class Patrol : MonoBehaviour
     {
         FacingRight = !FacingRight;
         transform.Rotate(0, 180, 0);
+        RB.velocity = new Vector2(transform.right.x * MoveSpeed, RB.velocity.y);
+        if(GetComponent<Platform>())
+        {
+            if(Movement.instance.Horizontal == 0 &&  Platform.platform == GetComponent<Platform>())
+            {
+                Movement.instance.MyRigidbody.velocity = new Vector2(RB.velocity.x,Movement.instance.MyRigidbody.velocity.y);
+            }
+        }
     }
 }
  

@@ -7,9 +7,8 @@ public class SlimeObject : MonoBehaviour
 {
     public SlimeColor slimeColor;
     private SpriteRenderer spriteRenderer;
-    public Collider2D MyCollider;
+    public Collider2D[] MyColliders;
     private Collider2D PlayerCollider;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +37,9 @@ public class SlimeObject : MonoBehaviour
         Color targetColor = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, targetAlpha);
 
         spriteRenderer.color = Color.Lerp(spriteRenderer.color, targetColor, 10 * Time.deltaTime);
-        Physics2D.IgnoreCollision(MyCollider, PlayerCollider, slimeColor == ColorController.instance.slimeColor);
+        foreach (Collider2D collider in MyColliders)
+        {
+            Physics2D.IgnoreCollision(collider, PlayerCollider, slimeColor == ColorController.instance.slimeColor);
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     public static Platform platform;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     
     // Start is called before the first frame update
     void Awake()
@@ -16,10 +16,7 @@ public class Platform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(platform == this && gameObject.layer == 6)
-        { 
-            Movement.instance.MyRigidbody.velocity = new Vector2((Movement.instance.MoveSpeed * Movement.instance.Horizontal) +  rb.velocity.x,Movement.instance.MyRigidbody.velocity.y);
-        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -27,6 +24,10 @@ public class Platform : MonoBehaviour
         if(other.GetComponent<Movement>())
         {
             platform = this;
+            if(Movement.instance.Horizontal == 0)
+            {
+                Movement.instance.MyRigidbody.velocity = new Vector2(rb.velocity.x,Movement.instance.MyRigidbody.velocity.y);
+            }
         }
     }
 

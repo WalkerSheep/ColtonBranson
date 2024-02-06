@@ -43,12 +43,13 @@ public class WallStick : MonoBehaviour
 
         if(WallSliding)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(movement.SavedJump && Input.GetKey(KeyCode.Space))
             {
+                movement.CanMove = false;
                 StartCoroutine(StopMovement(0.5f));
-                WallSliding = false;
                 movement.Flip();
                 movement.JumpAnimate();
+                movement.SavedJump = false;
                 movement.MyRigidbody.velocity = new Vector2(movement.Flipper.right.x * 10,movement.JumpHeight);
             }
             if(movement.Flipper.transform.right.x != movement.Horizontal)
